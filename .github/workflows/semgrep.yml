@@ -1,16 +1,19 @@
 name: Semgrep SAST Scan
-
 on:
   push:
-    branches: [main, master]
+    branches: [ main, master ]
   pull_request:
-    branches: [main, master]
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  security-events: write
+  contents: read
 
 jobs:
   semgrep-scan:
     name: Semgrep Static Analysis
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
