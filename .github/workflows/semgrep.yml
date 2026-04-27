@@ -15,9 +15,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Semgrep
+        run: pip install semgrep
+
       - name: Run Semgrep
-        uses: returntocorp/semgrep-action@v1
+        run: semgrep --config p/javascript --config p/secrets --config p/owasp-top-ten . --sarif --output semgrep.sarif
+
+      - name: Upload SARIF results
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          config: |
-            p/javascript
-            p/secrets
+          sarif_file: semgrep.sarif
