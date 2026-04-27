@@ -21,9 +21,3 @@ jobs:
           config: |
             p/javascript
             p/secrets
-
-      - name: Upload SARIF results (for GitHub Security tab)
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: semgrep.sarif
